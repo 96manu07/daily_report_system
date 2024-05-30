@@ -9,12 +9,12 @@ import constants.JpaConst;
 public class DBUtil {
     private static EntityManagerFactory emf;
 
-    public static EntityManager creanteEntityManager(){
+    public static EntityManager createEntityManager() {
         return _getEntityManagerFactory().createEntityManager();
     }
 
     private static EntityManagerFactory _getEntityManagerFactory() {
-        if(emf == null) {
+        if (emf == null) {
             emf = Persistence.createEntityManagerFactory(JpaConst.PERSISTENCE_UNIT_NAME);
         }
 
