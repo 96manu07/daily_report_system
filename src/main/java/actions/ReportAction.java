@@ -121,6 +121,7 @@ public class ReportAction extends ActionBase {
 
     public void update() throws ServletException, IOException {
         if (checkToken()) {
+
             ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
             rv.setReportDate(toLocalDate(getRequestParam(AttributeConst.REP_DATE)));
@@ -130,10 +131,14 @@ public class ReportAction extends ActionBase {
             List<String> errors = service.update(rv);
 
             if (errors.size() > 0) {
+
                 putRequestScope(AttributeConst.TOKEN, getTokenId());
                 putRequestScope(AttributeConst.REPORT, rv);
                 putRequestScope(AttributeConst.ERR, errors);
+
+                forward(ForwardConst.FW_REP_EDIT);
             } else {
+
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
 
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
